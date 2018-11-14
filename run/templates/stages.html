@@ -1,0 +1,40 @@
+{% extends "structure.html" %}
+{% block main %}
+
+
+      <div class="card mx-auto">
+          <img class="card-img-top" src="static/owl.jpeg" alt="Card image cap">
+          <div class="card-body">
+              
+                  <h1 class="card-title h1 mb-3 font-weight-normal">Fantasy Overwatch</h1>
+              
+                  <h4 class="card-title h3 mb-3 font-weight-normal">Pick A Stage To Place A Bet</h4>
+
+                  <form action="/stage1"  method="get">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Stage 1</button>
+                  </form>
+            
+                  <br>
+                  <form method="get" action="/stage2">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Stage 2</button>
+                </form>
+                <br>
+                  <form method="get" action="/stage3">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Stage 3</button>
+                </form>
+                <br>
+                  <form method="get" action="/stage4">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Stage 4</button>
+                </form>
+                <br>
+                  <form method="get" action="/playoffs">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Playoffs</button>
+                </form>
+                <p class="mt-5 mb-3 text-muted">Created by Callahan Cohane&copy; 2017-2018</p>
+          </div>
+      </div>
+
+    
+
+
+{% endblock main %}

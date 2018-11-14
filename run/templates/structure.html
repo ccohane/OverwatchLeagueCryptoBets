@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+
+    <title>Fantasy Overwatch</title>
+
+    <script language="javascript" type="text/javascript" src="web3.min.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.1/examples/dashboard/dashboard.css" rel="stylesheet">
+  </head>
+
+  <body>
+      <script>
+          // 2. Start code here
+          var OwlCryptoBets;
+
+          function startApp() {
+            var OwlCryptoBetsAddress = "YOUR_CONTRACT_ADDRESS";
+            OwlCryptoBets = new web3js.eth.Contract(OwlABI, OwlCryptoBetsAddress);
+          
+            var accountInterval = setInterval(function() {
+          // Check if account has changed
+            if (web3.eth.accounts[0] !== userAccount) {
+              userAccount = web3.eth.accounts[0];
+              // Call a function to update the UI with the new account
+              getZombiesByOwner(userAccount)
+              .then(displayZombies);
+              }
+            }, 100);
+          
+          }
+
+          function getTokenDetails(id) {
+            return OwlCryptoBets.methods.zombies(id).call()
+          }
+    
+          window.addEventListener('load', function() {
+    
+            // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+            if (typeof web3 !== 'undefined') {
+              // Use Mist/MetaMask's provider
+              web3js = new Web3(web3.currentProvider);
+            } else {
+              // Handle the case where the user doesn't have Metamask installed
+              // Probably show them a message prompting them to install Metamask
+            }
+    
+            // Now you can start your app & access web3 freely:
+            startApp()
+    
+          })
+        </script>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <img src="static/owl.jpeg" class="mx-auto" width="50" height="50">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/stages">Fantasy Overwatch</a>
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="/logout">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="/dashboard">
+                  <span data-feather="home"></span>
+                  Dashboard <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">
+                  <span data-feather="file"></span>
+                  My Profile
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/stage1">
+                  <span data-feather="shopping-cart"></span>
+                   Stage 1 
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/stage2">
+                    <span data-feather="shopping-cart"></span>
+                    Stage 2 
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/stage3">
+                    <span data-feather="shopping-cart"></span>
+                    Stage 3 
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/stage4">
+                    <span data-feather="shopping-cart"></span>
+                    Stage 4 
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/playoffs">
+                    <span data-feather="shopping-cart"></span>
+                    Playoffs 
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            
+            {% block main %}
+
+            {% endblock main%}
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
