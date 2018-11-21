@@ -1,34 +1,10 @@
 {% extends "structure.html" %}
 {% block main %}
 
+<div id="txStatus"></div>
+<div id="tokens"></div>
 
-    <h2>Yo Bets</h2>
-    <br>
-    <div class="table-responsive">
-      <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th>Stage</th>
-            <th>Amount bet</th>
-            <th>Teams</th>
-            <th>Teams</th>
-            <th>Teams</th>
-          </tr>
-        </thead>
-        {% block table %}
-        <tbody>
-          {% for row in bets %}
-          <tr>
-            <td>{{ row[6] }}</td>
-            <td>{{ row[7] }}</td>
-            <td>{{ row[2] }}</td>
-            <td>{{ row[3] }}</td>
-            <td>{{ row[4] }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-        {% endblock table %}
-      </table>
-    </div>
+
+
 
 {% endblock main %}

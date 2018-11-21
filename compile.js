@@ -4,6 +4,7 @@ const solc = require('solc');
 const owlPath = path.resolve("run", 'contracts', 'overwatch.sol');
 const source = fs.readFileSync(owlPath, 'UTF-8');
 
-console.log(solc.compile(source,1).contracts[':CoreLayer'])
+//console.log(solc.compile(source,1).contracts[':CoreLayer'])
+//console.log(solc.compile(source,1))
 
-//module.exports = solc.compile(source, 1).contracts[':Hello'];
+module.exports = solc.compile(source, 1).contracts[':CoreLayer'];

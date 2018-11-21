@@ -1,7 +1,7 @@
 pragma solidity ^0.4.22;
-pragma experimental ABIEncoderV2;
+//pragma experimental ABIEncoderV2;
 
-import "./testingDataCalls.sol";
+//import "./testingDataCalls.sol";
 
 
 /**
@@ -69,40 +69,10 @@ contract ERC721 {
 
 }
 
-
-/**
-* @title DataLayer.
-* @author Callahan Cohane
-*/
 contract DataLayer{
-    
-    uint256 constant OWLTOKEN_CREATION_LIMIT = 5000000;
-    uint256 constant STARTING_PRICE = 50 finney;
-    
-    /// Epoch times for when each stage starts.
-    uint256 constant FIRST_PHASE  = 1547146800; 
-    uint256 constant SECOND_PHASE  = 1550775600;
-    uint256 constant THIRD_PHASE  = 1554404400;
-    uint256 constant FOURTH_PHASE  = 1558033200;   
-    uint256 constant PLAYOFF_PHASE  = 1562871600;
-
-    /// Pool amounts
-    uint256 adminPool =0;
-    uint256 stage1Pool =0;
-    uint256 stage2Pool =0;
-    uint256 stage3Pool =0;
-    uint256 stage4Pool =0;
-    uint256 playoffPool =0;
-
-    /// payout amount per winner token, calculated by (stage prize pool * .9 )/amount ofwinning tokens  
-    uint256 stage1Payout = 0;
-    uint256 stage2Payout = 0;
-    uint256 stage3Payout = 0;
-    uint256 stage4Payout = 0;
-    uint256 playoffPayout = 0;
+    using SafeMath for *;
 
     address public adminAddress;
-    uint256 public deploymentTime;
 
     /**
     * WinningTeam   TeamId of a predicted stage winner
@@ -122,52 +92,23 @@ contract DataLayer{
         uint RunnerUp;
     }
 
-    struct Stage2Winners {
-        uint WinningTeam;
-        uint RunnerUp;
-    }
-
-    struct Stage3Winners {
-        uint WinningTeam;
-        uint RunnerUp;
-    }
-
-    struct Stage4Winners {
-        uint WinningTeam;
-        uint RunnerUp;
-    }
-
-    struct PlayoffWinner {
-        uint WinningTeam;
-        uint RunnerUp;
-    }
     
     // List of all tokens
     Token[] public tokens;
-
     Stage1Winners[] public stage1Winners;
-    Stage2Winners[] public stage2Winners;
-    Stage3Winners[] public stage3Winners;
-    Stage4Winners[] public stage4Winners;
-    PlayoffWinner[] public playoffWinners;
 
     // List of all tokens that won 
     uint256[] Stage1WinningTokens;
-    uint256[] Stage2WinningTokens;
-    uint256[] Stage3WinningTokens;
-    uint256[] Stage4WinningTokens;
-    uint256[] PlayoffWinningTokens;
 
     mapping (address => uint256[]) public tokensOfOwnerMap;
     mapping (uint256 => address) public ownerOfTokenMap;
     mapping (uint256 => address) public tokensApprovedMap;
     mapping (uint256 => bool) public tokenToWinnerMap; 
-    
 
-    event LogTokenBuilt(address creatorAddress, uint256 tokenId, Token token);
+    event LogTokenBuilt(address creatorAddress, uint256 tokenId, uint8 stage, uint Winner, uint Runnerup, uint64 timeStamp);
+    event LogPoolSize(uint money, uint stage);
 
 }
-
 
 /**
 * @title AccessControlLayer
@@ -176,7 +117,6 @@ contract DataLayer{
 * for pauseing, and setting emergency stops.
 */
 contract AccessControlLayer is DataLayer{
-
    /**
    * @dev Main modifier to limit access to delicate functions.
    */
@@ -190,7 +130,7 @@ contract AccessControlLayer is DataLayer{
     * @dev Transfer contract's ownership
     * @param _newAdmin Address to be set
     */
-    function setAdmin(address _newAdmin) external onlyAdmin {
+    function setAdmin(address _newAdmin) external {
 
         require(_newAdmin != address(0), "New admin cannot equals address 0.");
         adminAddress = _newAdmin;
@@ -217,8 +157,8 @@ contract OverwatchLeagueToken is AccessControlLayer, ERC721 {
 
     /**
     * @notice checks if the address provided is approved for a given token 
-    * @param userAddress 
-    * @param tokenId 
+    * @param userAddress - The address to check.
+    * @param tokenId - ID of the token that needs to be verified.
     * @return true if it is aproved
     */
     function _tokenIsApproved(address userAddress, uint256 tokenId) internal view returns (bool) {
@@ -344,192 +284,21 @@ contract OverwatchLeagueToken is AccessControlLayer, ERC721 {
 
 
 /**
-* @title GameLogicLayer, contract in charge of everything related to calculating points, asigning
-* winners, and distributing prizes.
-* @author Callahan Cohane
-*/
-contract GameLogicLayer is OverwatchLeagueToken, stage1WinnerDataSource, stage1Team1DataSource, stage1Team2DataSource, stage2WinnerDataSource, stage2Team1DataSource, stage2Team2DataSource,stage3WinnerDataSource, stage3Team1DataSource, stage3Team2DataSource,stage4WinnerDataSource, stage4Team1DataSource, stage4Team2DataSource,playoffWinnerDataSource,playoffTeam1DataSource,playoffTeam2DataSource{
-
-    using SafeMath for *;
-
-    function addPoolSize(uint Stage, uint amount) internal {
-        if(Stage == 1){
-            stage1Pool.add(amount);
-        } else if(Stage == 2){
-            stage2Pool.add(amount);
-        } else if(Stage == 3){
-            stage3Pool.add(amount);
-        } else if(Stage == 4){
-            stage4Pool.add(amount);
-        } else if(Stage == 5){
-            playoffPool.add(amount);
-        }
-    }
-
-    function addAdminPool(uint amount) internal{
-        adminPool.add(amount);
-    }
-    
-    function getStage1() internal onlyAdmin{
-        getStage1Winner();
-        getStage1Team1();
-        getStage1Team2();
-        uint winner = stage1Winner;
-        uint team1 = stage1Team1;
-        uint team2 = stage1Team2;
-        if(winner == team1){
-            uint runner = team2;
-        } else {
-            runner = team1;
-        }
-        Stage1Winners memory stage1Win = Stage1Winners(winner,runner);
-        stage1Winners.push(stage1Win);
-    }
-
-    function getStage2() internal onlyAdmin{
-        getStage2Winner();
-        getStage2Team1();
-        getStage2Team2();
-        uint winner = stage2Winner;
-        uint team1 = stage2Team1;
-        uint team2 = stage2Team2;
-        if(winner == team1){
-            uint runner = team2;
-        } else {
-            runner = team1;
-        }
-        Stage2Winners memory stage2Win = Stage2Winners(winner,runner);
-        stage2Winners.push(stage2Win);
-    }
-
-    function getStage3() internal onlyAdmin{
-        getStage3Winner();
-        getStage3Team1();
-        getStage3Team2();
-        uint winner = stage3Winner;
-        uint team1 = stage3Team1;
-        uint team2 = stage3Team2;
-        if(winner == team1){
-            uint runner = team2;
-        } else {
-            runner = team1;
-        }
-        Stage3Winners memory stage3Win = Stage3Winners(winner,runner);
-        stage3Winners.push(stage3Win);
-    }
-
-    function getStage4() internal onlyAdmin{
-        getStage4Winner();
-        getStage4Team1();
-        getStage4Team2();
-        uint winner = stage4Winner;
-        uint team1 = stage4Team1;
-        uint team2 = stage4Team2;
-        if(winner == team1){
-            uint runner = team2;
-        } else {
-            runner = team1;
-        }
-        Stage4Winners memory stage4Win = Stage4Winners(winner,runner);
-        stage4Winners.push(stage4Win);
-    }
-
-    function getPlayoffs() internal onlyAdmin{
-        getPlayoffWinner();
-        getPlayoffTeam1();
-        getPlayoffTeam2();
-        uint winner = playoffWinner;
-        uint team1 = playoffTeam1;
-        uint team2 = playoffTeam2;
-        if(winner == team1){
-            uint runner = team2;
-        } else {
-            runner = team1;
-        }
-        PlayoffWinner memory playoffWin = PlayoffWinner(winner,runner);
-        playoffWinners.push(playoffWin);
-    }
-
-    function checkStage1Winners() internal onlyAdmin {
-
-        for(uint i = 0; i < tokens.length; i++){
-            if(tokens[i].Stage == 1 && tokens[i].WinningTeam == stage1Winners[0].WinningTeam && tokens[i].RunnerUp == stage1Winners[0].RunnerUp){
-                Stage1WinningTokens.push(i);
-                tokenToWinnerMap[i] = true;
-            } else {
-                tokenToWinnerMap[i] = false;
-            }
-        }
-    }
-    function checkStage2Winners() internal onlyAdmin {
-
-        for(uint i = 0; i<tokens.length; i++){
-            if(tokens[i].Stage == 2 && tokens[i].WinningTeam == stage2Winners[0].WinningTeam && tokens[i].RunnerUp == stage2Winners[0].RunnerUp){
-                Stage2WinningTokens.push(i);
-            }
-        }
-    }
-    function checkStage3Winners() internal onlyAdmin {
-
-        for(uint i = 0; i<tokens.length; i++){
-            if(tokens[i].Stage == 3 && tokens[i].WinningTeam == stage3Winners[0].WinningTeam && tokens[i].RunnerUp == stage3Winners[0].RunnerUp){
-                Stage3WinningTokens.push(i);
-            }
-        }
-    }
-    function checkStage4Winners() internal onlyAdmin {
-
-        for(uint i = 0; i<tokens.length; i++){
-            if(tokens[i].Stage == 4 && tokens[i].WinningTeam == stage4Winners[0].WinningTeam && tokens[i].RunnerUp == stage4Winners[0].RunnerUp){
-                Stage4WinningTokens.push(i);
-            }
-        }
-    }
-    function checkPlayoffWinners() internal onlyAdmin {
-
-        for(uint i = 0; i<tokens.length; i++){
-            if(tokens[i].Stage == 5 && tokens[i].WinningTeam == playoffWinners[0].WinningTeam && tokens[i].RunnerUp == playoffWinners[0].RunnerUp){
-                PlayoffWinningTokens.push(i);
-            }
-        }
-    }
-    function getPayout(uint Stage) internal onlyAdmin {
-        if(Stage == 1){
-
-            stage1Payout = stage1Pool.div(Stage1WinningTokens.length);
-
-        } else if(Stage == 2){
-
-            stage2Payout = stage2Pool.div(Stage2WinningTokens.length);
-
-        } else if(Stage == 3){
-
-            stage3Payout = stage3Pool.div(Stage3WinningTokens.length);
-
-        } else if(Stage == 4){
-
-            stage4Payout = stage4Pool.div(Stage4WinningTokens.length);
-
-        } else if(Stage == 5){
-
-            playoffPayout = playoffPool.div(PlayoffWinningTokens.length);
-        }
-        
-    }
-
-}
-
-
-/**
 * @title CoreLayer
 * @author Callahan Cohane
 * @notice Main contract
 */
-contract CoreLayer is GameLogicLayer{
+contract CoreLayer is OverwatchLeagueToken{
+
+    using SafeMath for *;
+    uint256 public stage1Pool;  
+    uint256 public stage1Payout;
+    
+    event LogPayout(uint payout);
+    event LogWinners(uint winners, uint[] tokenList, uint prize, uint stage1Pool);
 
     constructor() public {
         adminAddress = msg.sender;
-        deploymentTime = now;
     }
 
     /** 
@@ -546,19 +315,8 @@ contract CoreLayer is GameLogicLayer{
     * @param RunnerUp -  Team being bet on to come in second.
     * @dev An automatic timestamp is added for internal use.
     */
-    function buildToken(uint8 Stage, uint WinningTeam, uint RunnerUp) external payable {
-        if(Stage == 1){
-            require(now <= FIRST_PHASE," ");
-        } else if(Stage == 2){
-            require(now <= SECOND_PHASE," ");
-        } else if(Stage == 3){
-            require(now <= THIRD_PHASE," ");
-        } else if(Stage == 4){
-            require(now <= FOURTH_PHASE," ");
-        } else if(Stage == 5){
-            require(now <= PLAYOFF_PHASE," ");
-        }
-
+    function buildToken(uint8 Stage, uint WinningTeam, uint RunnerUp) public payable {
+        
         Token memory token = Token({
             Stage: Stage,
             WinningTeam: WinningTeam,
@@ -566,22 +324,17 @@ contract CoreLayer is GameLogicLayer{
             timeStamp: uint64(now)
         });
 
-        require(msg.value == _getTokenPrice(Stage), "Value doesn't equal tokens price");
         require(msg.sender != address(0), "Address equals address 0");
-        require(tokens.length < OWLTOKEN_CREATION_LIMIT, "Reached tournament token limit");
         require(tokensOfOwnerMap[msg.sender].length < 100, "Reach individual token limit");
-        require(now < PLAYOFF_PHASE,"Reached beginning of playoffs so no more tokens"); //Overwatch League Stage 1 Start 
 
         uint256 tokenId = tokens.push(token) - 1;
         uint256 pool = msg.value;
-        uint256 _prizePool = (pool.mul(9)).div(10);
-        uint256 _adminPool = pool.div(10);
+        stage1Pool = stage1Pool.add(pool);
+        
 
-        addPoolSize(Stage, _prizePool);
-        addAdminPool(_adminPool);
         _setTokenOwner(msg.sender, tokenId);
-        emit LogTokenBuilt(msg.sender, tokenId, token);
-
+        emit LogTokenBuilt(msg.sender, tokenId, tokens[tokenId].Stage, tokens[tokenId].WinningTeam, tokens[tokenId].RunnerUp, tokens[tokenId].timeStamp);
+        emit LogPoolSize(stage1Pool, Stage);
     }
 
     /** 
@@ -599,56 +352,16 @@ contract CoreLayer is GameLogicLayer{
 
     }
 
-    /**
-    * @notice Gets current token price 
-    */
-    function _getTokenPrice(uint Stage) internal view returns(uint256 tokenPrice){
+    function StageResults(uint Stage, uint winner, uint runner) external onlyAdmin {
         if(Stage == 1){
-            tokenPrice = STARTING_PRICE;
-        } else if(Stage == 2){
-            tokenPrice = (75 finney);
-        } else if(Stage == 3){
-            tokenPrice = (110 finney);
-        } else if(Stage == 4){
-            tokenPrice = (150 finney);
-        } else if(Stage == 5){
-            tokenPrice = (200 finney);
-        }
-    }
-
-
-    function StageResults(uint Stage) external onlyAdmin {
-        if(Stage == 1){
-            
-            getStage1();
+            Stage1Winners memory stage1Win = Stage1Winners(winner,runner);
+            stage1Winners.push(stage1Win);
             checkStage1Winners();
-        } else if(Stage == 2){
-            getStage2();
-            checkStage2Winners();
-        } else if(Stage == 3){
-            getStage3();
-            checkStage3Winners();
-        } else if(Stage == 4){
-            getStage4();
-            checkStage4Winners();
-        } else if(Stage == 5){
-            getPlayoffs();
-            checkPlayoffWinners();
-        }
+            getPayout(Stage);
         
+        }       
     }
 
-
-    /**
-    * @notice Called by the development team once the World Cup has ended (adminPool is set) 
-    * @dev Allows dev team to retrieve adminPool
-    */
-    function adminWithdrawBalance() external onlyAdmin {
-
-        adminAddress.transfer(adminPool);
-        adminPool = 0;
-
-    }
 
     /**
     * @notice Allows any user to retrieve their asigned prize. This would be the sum of the price of all the tokens
@@ -662,73 +375,42 @@ contract CoreLayer is GameLogicLayer{
         if(Stage == 1){
             for(uint256 i = 0;i < tokenList.length; i++){
                 if(tokenToWinnerMap[tokenList[i]]){
-                    winners.add(1);
+                    winners = winners.add(1);
                 }
             }
             prize = winners.mul(stage1Payout);
-            require(prize > 0," ");
-            msg.sender.transfer(prize);
-            stage1Pool.sub(prize);
-            winners = 0;
-
-        } else if(Stage == 2) {
-
-            for(uint256 j = 0;j < tokenList.length; j++){
-                if(tokenToWinnerMap[tokenList[j]]){
-                    winners.add(1);
-                }
+            if(prize>0){
+                msg.sender.transfer(prize);
+                stage1Pool = stage1Pool.sub(prize);
+                emit LogWinners(winners,tokenList,prize, stage1Pool);
+                winners = 0;
+            }else {
+                emit LogWinners(winners,tokenList,prize, stage1Pool); 
             }
-
-            prize = winners.mul(stage2Payout);
-            require(prize > 0," ");
-            msg.sender.transfer(prize);
-            stage2Pool.sub(prize);
-            winners = 0;
-
-        } else if(Stage == 3) {
-
-            for(uint256 l = 0;l < tokenList.length; l++){
-                if(tokenToWinnerMap[tokenList[l]]){
-                    winners.add(1);
-                }
-            }
-
-            prize = winners.mul(stage3Payout);
-            require(prize > 0," ");
-            msg.sender.transfer(prize);
-            stage3Pool.sub(prize);
-            winners = 0;
-
-        } else if(Stage == 4) {
-
-            for(uint256 p = 0;p < tokenList.length; p++){
-                if(tokenToWinnerMap[tokenList[p]]){
-                    winners.add(1);
-                }
-            }
-
-            prize = winners.mul(stage4Payout);
-            require(prize > 0," ");
-            msg.sender.transfer(prize);
-            stage4Pool.sub(prize);
-            winners = 0;
-
-        } else if(Stage == 5) {
-
-            for(uint256 k = 0;k < tokenList.length; k++){
-                if(tokenToWinnerMap[tokenList[k]]){
-                    winners.add(1);
-                }
-            }
-
-            prize = winners.mul(playoffPayout);
-            require(prize > 0," ");
-            msg.sender.transfer(prize);
-            playoffPool.sub(prize);
-            winners = 0;
+            
         }
     }
 
+
+    function checkStage1Winners() internal onlyAdmin {
+
+        for(uint i = 0; i < tokens.length; i++){
+            if(tokens[i].Stage == 1 && tokens[i].WinningTeam == stage1Winners[0].WinningTeam && tokens[i].RunnerUp == stage1Winners[0].RunnerUp){
+                Stage1WinningTokens.push(i);
+                tokenToWinnerMap[i] = true;
+            } else {
+                tokenToWinnerMap[i] = false;
+            }
+        }
+    }
+
+    function getPayout(uint Stage) internal onlyAdmin {
+        if(Stage == 1){
+            stage1Payout = stage1Pool.div(Stage1WinningTokens.length);
+            emit LogPayout(stage1Payout);
+            
+        }
+    }
      /**
     * @notice Let the admin cash-out the entire contract balance 10 days after game has finished.
     */
@@ -738,7 +420,6 @@ contract CoreLayer is GameLogicLayer{
         adminAddress.transfer(balance);
 
     }
-    
 
 }
 
