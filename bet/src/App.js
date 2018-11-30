@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import $ from 'jquery';
 import getWeb3 from './utils/getWeb3.js';
-import {Grid,Row,Col,} from 'react-bootstrap';
+import {Grid,Row,Col,ListGroup, ListGroupItem} from 'react-bootstrap';
 import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle} from 'reactstrap';
 import CoreLayer from './contracts/CoreLayer.json';
@@ -13,6 +13,7 @@ import Admin from './Admin';
 
 import Withdrawal from './Withdrawal';
 import teams from './teams';
+import tokenBuiltEvent from './tokenBuiltEvent';
 
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
       web3 : '',
       address: '',
       poolSize: '',
+      totalTokens: '',
       finalResults: "",
     };
     this.getPoolSize = this.getPoolSize.bind(this)
@@ -69,9 +71,18 @@ class App extends Component {
           })
           
         })
+        BettingInstance.totalSupply.call()
+        .then((result) => {
+          console.log(result.toNumber())
+          var totalTokens1 = result.toNumber()
+          this.setState({
+          totalTokens: totalTokens1,
+        })
+        
+      })
     })
   })
-}
+  }
   getTokens(web3){
     $("#Tokens").empty();
     //Get the contract
@@ -90,8 +101,6 @@ class App extends Component {
         
         .then((tokenIds) => {
           console.log('made it past tokens of owner')
-          var cols = tokenIds.length;
-          cols = cols/12;
 
           for(var i =0;i<tokenIds.length; i++){
             //tokens.push(BettingInstance.getToken(tokenIds[i])
@@ -100,13 +109,14 @@ class App extends Component {
               console.log(token)
               // Using ES6's "template literals" to inject variables into the HTML.
               // Append each one to our #tokens div
+
               $("#Tokens").append(
-                `<div class="card col-sm-${cols}">
-                  <img class="card-img-top" src="..." alt="Card image cap">
+                `<div class="card ">
+                  <img class="card-img-top" width="50" height="50" src=${teams[token[1].toNumber()][1]} alt="Card image cap">
                   <div class="card-body">
                     <h5 class="card-title">Stage: ${token[0].toNumber()}</h5>
-                    <p class="card-text">Winning Team: ${teams[token[1].toNumber()]} 
-                    <br> Runner Up: ${teams[token[2].toNumber()]}</p>
+                    <p class="card-text">Winning Team: ${teams[token[1].toNumber()][0]} 
+                    <br> Runner Up: ${teams[token[2].toNumber()][0]}</p>
                     <div class="card-footer text-muted">
                     ${token[3].toNumber()}</div>
                   </div>
@@ -115,7 +125,8 @@ class App extends Component {
           })
     }})
   })
-  })}
+  })
+  }
   
 
   render() {
@@ -127,24 +138,38 @@ class App extends Component {
           <h1 className="App-title">Overwatch League CryptoBets</h1>
         </header>
         <div>
-          Welcome on my Overwatch League CryptoBets website <br/>
-        Your Wallet address is {this.state.address}
+          <h2>Welcome on my Overwatch League CryptoBets</h2> <br/>
+        Your Wallet address is <b>{this.state.address}</b>
+        <h4>Rules</h4>
+        <ListGroup className='align-items-start'> 
+          <ListGroupItem>Build a Token by choosing 1 team to win the Stage and 1 team to come in second place for the stage</ListGroupItem>
+          <ListGroupItem>Tokens cost .1 Ether</ListGroupItem>
+          <ListGroupItem>Users can have up to 100 tokens</ListGroupItem>
+          <ListGroupItem>Winning Tokens are determined if both teams picked are correctly</ListGroupItem>
+          <ListGroupItem>Winners can collect their prize money once the Stage has completed by clicking the withdrawal button below!</ListGroupItem>
+        </ListGroup>
+
         </div>
         {/*We define a grid*/}
         <Grid>
           {/*corresponding to class="row"*/}
-          <Card><div id='Tokens' className="card-deck"></div></Card>
-          
           <Row>
-            <div> 
-              <h2>Stage 1 Pool Size</h2>
+            <Col md={6} mdPush={6}>
+            <h2>Stage 1 Pool Size</h2>
               <p>{this.state.poolSize} Ether</p>
-            </div>
+              </Col>
+            <Col md={6} mdPull={6}>
+            <h2>Number of Tokens</h2>
+              <p>{this.state.totalTokens} Tokens</p>
+            </Col>
           </Row>
-          <Row><BuildToken/></Row>
-          <Row><Withdrawal/></Row>
-
+          <Row>
+            <Col><BuildToken/></Col>
+            <Col><Withdrawal/></Col>
+          </Row>
           <Row><Admin/></Row>
+          <Row><tokenBuiltEvent/></Row>
+          <div className="card-deck"> <div id='Tokens'></div> </div>
 
         </Grid>
       </div>

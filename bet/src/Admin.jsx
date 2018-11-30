@@ -50,7 +50,24 @@ class Admin extends Component {
             BettingInstance = instance
           }).then((result) => {
             console.log("deployed");
-            BettingInstance.StageResults(1,4410,4403, {from : accounts[0]})
+            var tokenForm = document.stage;
+                var WinningTeam = "";
+                var RunnerUp = "";
+                var i;
+                for (i = 0; i < tokenForm.length; i++) {
+                    if (tokenForm[i].name === "Winner" && tokenForm[i].checked) {
+                        WinningTeam = tokenForm[i].value;
+                        if(WinningTeam){
+                            console.log("Here")
+                        }
+                    } else if(tokenForm[i].name === "RunnerUp" && tokenForm[i].checked){
+                        RunnerUp = tokenForm[i].value;
+                        if(RunnerUp){
+                            console.log("Here1")
+                        }
+                    }
+                }
+            BettingInstance.StageResults(1,WinningTeam,RunnerUp, {from : accounts[0]})
             .then((result) => {
               this.setState({
                 finalResults: true,

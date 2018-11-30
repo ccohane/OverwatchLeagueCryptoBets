@@ -104,6 +104,7 @@ contract DataLayer{
     mapping (uint256 => address) public ownerOfTokenMap;
     mapping (uint256 => address) public tokensApprovedMap;
     mapping (uint256 => bool) public tokenToWinnerMap; 
+    mapping (address => bool) public recievedPrizeMoneyMap;
 
     event LogTokenBuilt(address creatorAddress, uint256 tokenId, uint8 stage, uint Winner, uint Runnerup, uint64 timeStamp);
     event LogPoolSize(uint money, uint stage);
@@ -122,6 +123,11 @@ contract AccessControlLayer is DataLayer{
    */
     modifier onlyAdmin() {
         require(msg.sender == adminAddress,"Not admin");
+        _;
+    }
+
+    modifier hasNotRecievedPrize(){
+        require(recievedPrizeMoneyMap[msg.sender] != true, "You already withdrew your prize money ");
         _;
     }
 
@@ -368,7 +374,7 @@ contract CoreLayer is OverwatchLeagueToken{
     * owned by the caller of this function.
     * @dev If the caller has no prize, the function will revert costing no gas to the caller.
     */
-    function _withdrawPrize(uint Stage) external payable{
+    function _withdrawPrize(uint Stage) external payable hasNotRecievedPrize{
         uint256 prize = 0;
         uint256[] memory tokenList = tokensOfOwnerMap[msg.sender];
         uint winners = 0;
@@ -384,8 +390,10 @@ contract CoreLayer is OverwatchLeagueToken{
                 stage1Pool = stage1Pool.sub(prize);
                 emit LogWinners(winners,tokenList,prize, stage1Pool);
                 winners = 0;
+                recievedPrizeMoneyMap[msg.sender] = true;
             }else {
                 emit LogWinners(winners,tokenList,prize, stage1Pool); 
+                recievedPrizeMoneyMap[msg.sender] = true;
             }
         }
     }
