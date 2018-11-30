@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import $ from 'jquery';
 import getWeb3 from './utils/getWeb3.js';
-import {Grid,Row,Col} from 'react-bootstrap';
+import {Grid,Row,Col,} from 'react-bootstrap';
+import { Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle} from 'reactstrap';
 import CoreLayer from './contracts/CoreLayer.json';
-import Profile from './Profile';
+//import Profile from './Profile';
 import BuildToken from './BuildToken';
 import Admin from './Admin';
-//import Withdrawal from './Withdrawal';
+
+import Withdrawal from './Withdrawal';
+import teams from './teams';
 
 
 class App extends Component {
@@ -20,6 +24,7 @@ class App extends Component {
       web3 : '',
       address: '',
       poolSize: '',
+      finalResults: "",
     };
     this.getPoolSize = this.getPoolSize.bind(this)
 
@@ -36,7 +41,7 @@ class App extends Component {
           web3: results.web3, 
         })
         this.getPoolSize()
-
+        this.getTokens(results.web3)
       });
     }).catch( () => {
       //If no web3 provider was found, log it in the console
@@ -47,7 +52,6 @@ class App extends Component {
   getPoolSize(){
     const contract = require('truffle-contract');
     const Betting = contract(CoreLayer);
-    console.log(this.state.web3.currentProvider)
     Betting.setProvider(this.state.web3.currentProvider);
     var BettingInstance;
     this.state.web3.eth.getAccounts((error, accounts) => {
@@ -68,41 +72,50 @@ class App extends Component {
     })
   })
 }
-getTokens(web3){
-  $("#Tokens").empty();
-  //Get the contract
-  const contract = require('truffle-contract');
-  const Betting = contract(BettingContract);
-  Betting.setProvider(web3.currentProvider);
-  var BettingInstance;
-  web3.eth.getAccounts((error, accounts) => {
-    Betting.deployed().then((instance) => {
-    //Instantiate the contract in a promise
-      BettingInstance = instance
-    })
-    .then((result) => {
-      console.log("this work");
-      BettingInstance.tokensOfOwner(accounts[0])
-      
-      .then((tokenIds) => {
-        console.log('made it past tokens of owner')
-        const tokens = [];
-        for(var i =0;i<tokenIds.length; i++){
-          tokens.push(BettingInstance.getToken(tokenIds[i])
-          .then((stage) => {
-            tokens={Stage: stage[0].toNumber(), Winner: stage[1].toNumber() , Runner: stage[2].toNumber(), Time: stage[3].toNumber()}
-            return tokens;
+  getTokens(web3){
+    $("#Tokens").empty();
+    //Get the contract
+    const contract = require('truffle-contract');
+    const Betting = contract(CoreLayer);
+    Betting.setProvider(web3.currentProvider);
+    var BettingInstance;
+    web3.eth.getAccounts((error, accounts) => {
+      Betting.deployed().then((instance) => {
+      //Instantiate the contract in a promise
+        BettingInstance = instance
+      })
+      .then((result) => {
+        console.log("this work");
+        BettingInstance.tokensOfOwner(accounts[0])
+        
+        .then((tokenIds) => {
+          console.log('made it past tokens of owner')
+          var cols = tokenIds.length;
+          cols = cols/12;
+
+          for(var i =0;i<tokenIds.length; i++){
+            //tokens.push(BettingInstance.getToken(tokenIds[i])
+            BettingInstance.getToken(tokenIds[i])
+              .then(function(token) {
+              console.log(token)
+              // Using ES6's "template literals" to inject variables into the HTML.
+              // Append each one to our #tokens div
+              $("#Tokens").append(
+                `<div class="card col-sm-${cols}">
+                  <img class="card-img-top" src="..." alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Stage: ${token[0].toNumber()}</h5>
+                    <p class="card-text">Winning Team: ${teams[token[1].toNumber()]} 
+                    <br> Runner Up: ${teams[token[2].toNumber()]}</p>
+                    <div class="card-footer text-muted">
+                    ${token[3].toNumber()}</div>
+                  </div>
+                </div>`
+              );
           })
-          )
-        }
-        this.setState({
-          Tokens: tokens,
-        })
-        console.log(this.state.Tokens)
-      });
-  });
-})
-}
+    }})
+  })
+  })}
   
 
   render() {
@@ -120,8 +133,8 @@ getTokens(web3){
         {/*We define a grid*/}
         <Grid>
           {/*corresponding to class="row"*/}
-          <div id='Tokens'></div>
-          <Row><Profile/></Row>
+          <Card><div id='Tokens' className="card-deck"></div></Card>
+          
           <Row>
             <div> 
               <h2>Stage 1 Pool Size</h2>
@@ -129,7 +142,7 @@ getTokens(web3){
             </div>
           </Row>
           <Row><BuildToken/></Row>
-          <Row></Row>
+          <Row><Withdrawal/></Row>
 
           <Row><Admin/></Row>
 

@@ -1,0 +1,22 @@
+const teams= {4402 : 'Boston Uprising',
+        4523 : 'Dallas Fuel',
+        4407: 'Florida Mayhem',
+        4525: 'Houston Outlaws' ,
+        4410: 'London Spitfire' ,
+        4406: 'Los Angeles Gladiators' ,
+       4405: 'Los Angeles Valiant' ,
+       4403: 'New York Excelsior',
+       4524: 'Philadelphia Fushion', 
+       4404: 'San Francisco Shock' ,
+       4409: 'Seoul Dynasty',
+       4408: 'Shanghai Dragons',
+       13: 'Atlanta',
+       14: 'Guangzhou',
+       15: 'Chengdu',
+       16: 'Hangzhou',
+       17: 'Paris',
+       18: 'Toronto',
+       19: 'Vancouver',
+       20: 'Washington, D.C'};
+
+export default teams;

@@ -12,6 +12,7 @@ class Admin extends Component {
           address: "",
         }
         this.getWinners = this.getWinners.bind(this);
+        this.SetAdmin = this.SetAdmin.bind(this);
       }
 
       componentDidMount(){
@@ -49,8 +50,11 @@ class Admin extends Component {
             BettingInstance = instance
           }).then((result) => {
             console.log("deployed");
-            BettingInstance.StageResults(1,4410,4403)
+            BettingInstance.StageResults(1,4410,4403, {from : accounts[0]})
             .then((result) => {
+              this.setState({
+                finalResults: true,
+              })
                 console.log("StageResults set");
             })
         });
@@ -59,6 +63,7 @@ class Admin extends Component {
 
       SetAdmin(){
         //Get the contract
+        console.log("set admin function")
         const contract = require('truffle-contract');
         const Betting = contract(CoreLayer);
         Betting.setProvider(this.state.web3.currentProvider);
@@ -69,6 +74,9 @@ class Admin extends Component {
             BettingInstance = instance
           }).then((result) => {
             console.log("deployed in set admin");
+            BettingInstance.adminAddress.call().then(value => {
+              console.log(value)
+            })
             BettingInstance.setAdmin('0xDd8A98ace58C038497bA8196A0c682613F7b4161')
             .then((result) => {
                 console.log("Admin set as "+ accounts[0]);
@@ -85,7 +93,7 @@ class Admin extends Component {
             <hr/>
             <button className="btn btn-primary btn-block" onClick={this.SetAdmin}>Set Admin</button>
             <hr/>
-            <button className="btn btn-primary btn-block" onClick={this.StageResults}>Get Stage Results</button>
+            <button className="btn btn-primary btn-block" onClick={this.getWinners}>Get Stage Results</button>
           </div>
         )}
         else{

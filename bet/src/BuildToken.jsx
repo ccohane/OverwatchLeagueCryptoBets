@@ -11,7 +11,7 @@ class BuildToken extends Component {
         this.state={
           web3: '',
           address: "",
-          InputAmount: '.55',
+          InputAmount: '.1',
           weiConversion : 1000000000000000000
         }
         this.BuildToken = this.BuildToken.bind(this);

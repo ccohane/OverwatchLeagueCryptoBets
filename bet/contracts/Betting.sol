@@ -387,7 +387,6 @@ contract CoreLayer is OverwatchLeagueToken{
             }else {
                 emit LogWinners(winners,tokenList,prize, stage1Pool); 
             }
-            
         }
     }
 
