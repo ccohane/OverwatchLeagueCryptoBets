@@ -93,7 +93,6 @@ class BuildToken extends Component {
             <div id="txStatus"></div>
             <form name="stage" className="form-signin">
                 <h2 className="card-title">Pick a Team To Win</h2>
-                <Grid>
           {/*corresponding to class="row"*/}
           <Row>
             {/* we define the two columns. The bootstrap grid is divided by 12
@@ -190,7 +189,7 @@ class BuildToken extends Component {
                
             </Col>
           </Row>
-          <Row>
+          <Row style= {{backgroundColor: '#f0f5f5'}}>
           <h2 className="card-title">Pick a Team To Come In Second Place!</h2>
               <Col xs={3} sm={3}>
               <div className="form-check form-check-inline ">
@@ -285,7 +284,7 @@ class BuildToken extends Component {
                
               </Col>
           </Row>
-        </Grid>
+    
             <br/>
                 <button className="btn btn-primary btn-block" onClick={this.BuildToken}>Build Token</button>
                 </form>

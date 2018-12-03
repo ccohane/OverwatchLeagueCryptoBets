@@ -72,7 +72,7 @@ contract ERC721 {
 contract DataLayer{
     using SafeMath for *;
 
-    address public adminAddress;
+    address public adminAddress = 0xDd8A98ace58C038497bA8196A0c682613F7b4161;
 
     /**
     * WinningTeam   TeamId of a predicted stage winner
@@ -96,6 +96,7 @@ contract DataLayer{
     // List of all tokens
     Token[] public tokens;
     Stage1Winners[] public stage1Winners;
+    bool public stage1Ended = false;
 
     // List of all tokens that won 
     uint256[] Stage1WinningTokens;
@@ -131,6 +132,11 @@ contract AccessControlLayer is DataLayer{
         _;
     }
 
+    modifier checkStage1Ended(){
+        require(stage1Ended != false, "Stage has not ended yet");
+        _;
+    }
+
 
     /**
     * @dev Transfer contract's ownership
@@ -140,6 +146,7 @@ contract AccessControlLayer is DataLayer{
 
         require(_newAdmin != address(0), "New admin cannot equals address 0.");
         adminAddress = _newAdmin;
+        
     }
 }
 
@@ -364,7 +371,7 @@ contract CoreLayer is OverwatchLeagueToken{
             stage1Winners.push(stage1Win);
             checkStage1Winners();
             getPayout(Stage);
-        
+            stage1Ended = true;
         }       
     }
 
@@ -374,7 +381,7 @@ contract CoreLayer is OverwatchLeagueToken{
     * owned by the caller of this function.
     * @dev If the caller has no prize, the function will revert costing no gas to the caller.
     */
-    function _withdrawPrize(uint Stage) external payable hasNotRecievedPrize{
+    function _withdrawPrize(uint Stage) external payable hasNotRecievedPrize checkStage1Ended{
         uint256 prize = 0;
         uint256[] memory tokenList = tokensOfOwnerMap[msg.sender];
         uint winners = 0;

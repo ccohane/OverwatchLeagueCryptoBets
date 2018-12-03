@@ -137,23 +137,28 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Overwatch League CryptoBets</h1>
         </header>
-        <div>
-          <h2>Welcome on my Overwatch League CryptoBets</h2> <br/>
+        <Row>
+          <h2 style= {{backgroundColor: '#f0f5f5'}}>Welcome to Overwatch League CryptoBets</h2> <br/>
         Your Wallet address is <b>{this.state.address}</b>
-        <h4>Rules</h4>
-        <ListGroup className='align-items-start'> 
-          <ListGroupItem>Build a Token by choosing 1 team to win the Stage and 1 team to come in second place for the stage</ListGroupItem>
-          <ListGroupItem>Tokens cost .1 Ether</ListGroupItem>
-          <ListGroupItem>Users can have up to 100 tokens</ListGroupItem>
-          <ListGroupItem>Winning Tokens are determined if both teams picked are correctly</ListGroupItem>
-          <ListGroupItem>Winners can collect their prize money once the Stage has completed by clicking the withdrawal button below!</ListGroupItem>
-        </ListGroup>
-
-        </div>
+        
+        </Row>
         {/*We define a grid*/}
-        <Grid>
+        
           {/*corresponding to class="row"*/}
-          <Row>
+          <h4>Rules</h4>
+        <ListGroup style= {{backgroundColor: '#f0f5f5'}}> 
+          <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>Build a Token by choosing 1 team to win the Stage and 1 team to come in second place for the stage</ListGroupItem>
+          <ListGroupItem >Tokens cost .1 Ether</ListGroupItem>
+          <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>Users can have up to 100 tokens</ListGroupItem>
+          <ListGroupItem >Winning Tokens are determined if both teams picked are correctly</ListGroupItem>
+          <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>Winners can collect their prize money once the Stage has completed by clicking the withdrawal button below!</ListGroupItem>
+        </ListGroup>
+        <Row>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/iCiALLXueZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br/>
+           Learn more about Overwatch League <br/> <a href= "https://overwatchleague.com/en-us/about">
+            Overwatch League</a>
+          </Row>
+          <Row style= {{backgroundColor: '#f0f5f5', marginLeft: 0, marginRight: 0}}>
             <Col md={6} mdPush={6}>
             <h2>Stage 1 Pool Size</h2>
               <p>{this.state.poolSize} Ether</p>
@@ -168,10 +173,11 @@ class App extends Component {
             <Col><Withdrawal/></Col>
           </Row>
           <Row><Admin/></Row>
-          <Row><tokenBuiltEvent/></Row>
-          <div className="card-deck"> <div id='Tokens'></div> </div>
+          <Row style= {{backgroundColor: '#f0f5f5'}}><tokenBuiltEvent/></Row>
+          <hr/>
+          <div className="card-deck" style= {{backgroundColor: '#f0f5f5'}}> <div id='Tokens'></div> </div>
 
-        </Grid>
+        
       </div>
     );
   }

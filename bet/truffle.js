@@ -16,7 +16,13 @@ var WalletProvider = require("truffle-wallet-provider");
 const Wallet = require('ethereumjs-wallet');
 var ropstenPrivateKey = new Buffer("5C9A6226F12D3CD170284ED9B0D464948576FC57C98FE720F6D3E4155A60524F","hex");
 var ropstenWallet = Wallet.fromPrivateKey(ropstenPrivateKey);
-var ropstenProvider = new WalletProvider(ropstenWallet, "https://ropsten.infura.io/v3/a85c8dca9afa45d9b5b67ee7bcdee024");
+var ropstenProvider = new WalletProvider(ropstenWallet, "https://ropsten.infura.io/v3/cd30bedc8ddc49a8a91905ebb1b434e7");
+
+var rinkebyPrivateKey = new Buffer("5C9A6226F12D3CD170284ED9B0D464948576FC57C98FE720F6D3E4155A60524F","hex");
+var rinkebyWallet = Wallet.fromPrivateKey(rinkebyPrivateKey);
+var rinkebyProvider = new WalletProvider(rinkebyWallet, "https://rinkeby.infura.io/v3/3d00da48ab1b46f7b6c32d8ede6ce694");
+
+
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
@@ -30,6 +36,12 @@ module.exports = {
       provider: ropstenProvider,
       gas: 4600000,
       network_id: 3
-    }
+    },
+    rinkeby: {
+      provider: rinkebyProvider,
+      network_id: 4,
+      gas: 5000000,
+    },
+
   }
 };
