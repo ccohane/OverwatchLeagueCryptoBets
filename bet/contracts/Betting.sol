@@ -328,8 +328,10 @@ contract CoreLayer is OverwatchLeagueToken{
     * @param RunnerUp -  Team being bet on to come in second.
     * @dev An automatic timestamp is added for internal use.
     */
-    function buildToken(uint8 Stage, uint WinningTeam, uint RunnerUp) public payable {
-        
+    function buildToken(uint8 Stage, uint WinningTeam, uint RunnerUp) public payable{
+        if(Stage == 1){
+            require(stage1Ended == false, "Stage 1 has ended");
+        }
         Token memory token = Token({
             Stage: Stage,
             WinningTeam: WinningTeam,
