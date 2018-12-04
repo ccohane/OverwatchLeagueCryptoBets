@@ -128,7 +128,7 @@ class App extends Component {
   })
   }
   
-
+//TODO display different stages
   render() {
 
     return (
