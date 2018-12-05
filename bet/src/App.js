@@ -15,6 +15,9 @@ import Withdrawal from './Withdrawal';
 import teams from './teams';
 import tokenBuiltEvent from './tokenBuiltEvent';
 
+/**
+ * Future project: create 4 contracts for 4 seperate stages of OWL 
+ */
 
 class App extends Component {
 
@@ -38,7 +41,7 @@ class App extends Component {
     this.getPoolSize = this.getPoolSize.bind(this)
 
   }
-  
+
   /**
    * Function acts as a construtor
    * Sets web3 and calls getPoolSize function and getTokens functions
