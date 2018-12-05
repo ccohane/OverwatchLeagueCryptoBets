@@ -38,7 +38,9 @@ class tokenBuiltEvent extends Component {
         })
       }
 
-
+    /**
+     * FIXME: create a function to render when a event is triggered on the smart contract  
+     */
     tokenBuiltEvent(web3){
         const contract = require('truffle-contract');
         const Betting = contract(CoreLayer);

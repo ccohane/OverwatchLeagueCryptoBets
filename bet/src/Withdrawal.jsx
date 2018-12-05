@@ -36,6 +36,10 @@ class Withdrawal extends Component {
         })
       }
 
+      /**
+       * Sends transaction to smart contract to get prize money. 
+       * FIXME: Continues to make users send gas even if they didn't have a winning token
+       */
       withdrawal(){
         //Get the contract
         console.log("withdrawal function ")
@@ -49,7 +53,7 @@ class Withdrawal extends Component {
             BettingInstance = instance
           }).then((result) => {
             console.log("deployed" , accounts[0]);
-
+            //send transaction to smart contract 
             BettingInstance._withdrawPrize(1, {from: accounts[0]})
             .then((result) => {
               console.log("passed blockchain withdrawal")
