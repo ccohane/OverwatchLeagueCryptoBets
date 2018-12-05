@@ -20,7 +20,14 @@ class App extends Component {
 
   constructor(){
     super(); //This is needed in every constructor to allow the use of 'this'
-    //We define the two variables we need in the state of our component, so they can be updated
+    //We define the variables we need in the state of our component, so they can be updated
+    /*
+    web3 is instance of web3
+    address is the current metamask user address 
+    poolSize is the stages total pool size
+    totalTokens is the total supply of tokens in the contract
+    finalResults is ??? .... FIXME
+    */
     this.state = {
       web3 : '',
       address: '',
@@ -52,6 +59,9 @@ class App extends Component {
   }
 
   getPoolSize(){
+    /* 
+    * Function makes calls to contract to get the stages pool size and total number of tokens
+    */
     const contract = require('truffle-contract');
     const Betting = contract(CoreLayer);
     Betting.setProvider(this.state.web3.currentProvider);
@@ -61,27 +71,27 @@ class App extends Component {
             BettingInstance = instance
         })
         .then((result) => {
+          //Gets pool size in ether
           BettingInstance.stage1Pool.call()
           .then((result) => {
             console.log(result['c'][0])
             var pool = result['c'][0]
             pool = pool/10000;
             this.setState({
-            poolSize: pool,
+              poolSize: pool,
+            })
           })
-          
+          // Gets supply of tokens
+          BettingInstance.totalSupply.call()
+          .then((result) => {
+            console.log(result.toNumber())
+            var totalTokens1 = result.toNumber()
+            this.setState({
+              totalTokens: totalTokens1,
+            })
+          })
         })
-        BettingInstance.totalSupply.call()
-        .then((result) => {
-          console.log(result.toNumber())
-          var totalTokens1 = result.toNumber()
-          this.setState({
-          totalTokens: totalTokens1,
-        })
-        
-      })
     })
-  })
   }
   getTokens(web3){
     $("#Tokens").empty();
