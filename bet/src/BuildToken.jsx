@@ -4,7 +4,7 @@ import getWeb3 from './utils/getWeb3.js';
 import CoreLayer from './contracts/CoreLayer.json';
 import './App.css';
 
-
+//Class to build a token on the smart contract
 class BuildToken extends Component {
     constructor(){
         super();
@@ -38,6 +38,7 @@ class BuildToken extends Component {
       }
     
       BuildToken(){
+        //Create an instance on the contract 
         console.log("I made it here") 
         const contract = require('truffle-contract');
         const Betting = contract(CoreLayer);
