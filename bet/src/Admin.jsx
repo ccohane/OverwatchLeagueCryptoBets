@@ -38,6 +38,10 @@ class Admin extends Component {
         })
       }
 
+      /**
+       * Allows administrator to input the winning and runner up to the smart contract
+       * Called when Get stage results button is pressed 
+       */
       getWinners(){
         //Get the contract
         const contract = require('truffle-contract');
@@ -50,6 +54,7 @@ class Admin extends Component {
             BettingInstance = instance
           }).then((result) => {
             console.log("deployed");
+            //Gets the inputs from the admin for the winning team and runner up 
             var tokenForm = document.stage;
                 var WinningTeam = "";
                 var RunnerUp = "";
@@ -67,6 +72,7 @@ class Admin extends Component {
                         }
                     }
                 }
+                //Sends winning token to the smart contract 
             BettingInstance.StageResults(1,WinningTeam,RunnerUp, {from : accounts[0]})
             .then((result) => {
               this.setState({
@@ -78,6 +84,9 @@ class Admin extends Component {
       })
       }
 
+      /**
+       * Fail safe to set admin to correct admin address
+       */
       SetAdmin(){
         //Get the contract
         console.log("set admin function")
@@ -104,6 +113,7 @@ class Admin extends Component {
 
 
       render(){
+        //Only renders if the metamask address is the admin
         if(this.state.address === "0xDd8A98ace58C038497bA8196A0c682613F7b4161"){
         return(
           <div>
