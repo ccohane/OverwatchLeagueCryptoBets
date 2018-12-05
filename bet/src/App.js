@@ -38,7 +38,11 @@ class App extends Component {
     this.getPoolSize = this.getPoolSize.bind(this)
 
   }
-
+  
+  /**
+   * Function acts as a construtor
+   * Sets web3 and calls getPoolSize function and getTokens functions
+   */
   componentDidMount() {
     getWeb3.then(results => {
       /*After getting web3, we save the informations of the web3 user by
@@ -93,6 +97,7 @@ class App extends Component {
         })
     })
   }
+
   getTokens(web3){
     $("#Tokens").empty();
     //Get the contract
@@ -107,19 +112,18 @@ class App extends Component {
       })
       .then((result) => {
         console.log("this work");
+        //Get list of token ids owned by the web3 account  
         BettingInstance.tokensOfOwner(accounts[0])
         
         .then((tokenIds) => {
           console.log('made it past tokens of owner')
 
           for(var i =0;i<tokenIds.length; i++){
-            //tokens.push(BettingInstance.getToken(tokenIds[i])
+            //Get the information about a token
             BettingInstance.getToken(tokenIds[i])
               .then(function(token) {
               console.log(token)
-              // Using ES6's "template literals" to inject variables into the HTML.
-              // Append each one to our #tokens div
-
+              //Append a card with token information to be rendered on the page
               $("#Tokens").append(
                 `<div class="card ">
                   <img class="card-img-top" width="50" height="50" src=${teams[token[1].toNumber()][1]} alt="Card image cap">
@@ -140,7 +144,6 @@ class App extends Component {
   
 //TODO display different stages
   render() {
-
     return (
       <div className="App">
       <header className="App-header">
