@@ -13,7 +13,8 @@ import Admin from './Admin';
 
 import Withdrawal from './Withdrawal';
 import teams from './teams';
-import tokenBuiltEvent from './tokenBuiltEvent';
+
+//import tokenBuiltEvent from './tokenBuiltEvent';
 
 /**
  * Future project: create 4 contracts for 4 seperate stages of OWL 
@@ -131,11 +132,9 @@ class App extends Component {
                 `<div class="card ">
                   <img class="card-img-top" width="50" height="50" src=${teams[token[1].toNumber()][1]} alt="Card image cap">
                   <div class="card-body">
-                    <h5 class="card-title">Stage: ${token[0].toNumber()}</h5>
-                    <p class="card-text">Winning Team: ${teams[token[1].toNumber()][0]} 
-                    <br> Runner Up: ${teams[token[2].toNumber()][0]}</p>
-                    <div class="card-footer text-muted">
-                    ${token[3].toNumber()}</div>
+                    <h5 class="card-title"><b>Stage:</b> ${token[0].toNumber()}</h5>
+                    <p class="card-text"><b>Winning Team</b>: ${teams[token[1].toNumber()][0]} 
+                    <br> <b>Runner Up</b>: ${teams[token[2].toNumber()][0]}</p>
                   </div>
                 </div>`
               );
@@ -152,46 +151,45 @@ class App extends Component {
       <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Overwatch League CryptoBets</h1>
-        </header>
+      </header>
         <Row>
           <h2 style= {{backgroundColor: '#f0f5f5'}}>Welcome to Overwatch League CryptoBets</h2> <br/>
         Your Wallet address is <b>{this.state.address}</b>
-        
         </Row>
         {/*We define a grid*/}
         
           {/*corresponding to class="row"*/}
-          <h4>Rules</h4>
+          <h4 style={{color:'#FF0000'}}>Rules</h4>
         <ListGroup style= {{backgroundColor: '#f0f5f5'}}> 
           <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>Build a Token by choosing 1 team to win the Stage and 1 team to come in second place for the stage</ListGroupItem>
           <ListGroupItem >Tokens cost .1 Ether</ListGroupItem>
           <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>Users can have up to 100 tokens</ListGroupItem>
           <ListGroupItem >Winning Tokens are determined if both teams picked are correctly</ListGroupItem>
-          <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>Winners can collect their prize money once the Stage has completed by clicking the withdrawal button below!</ListGroupItem>
+          <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>Winners can collect their prize money once the Stage has completed!</ListGroupItem>
         </ListGroup>
         <Row>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/iCiALLXueZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br/>
            Learn more about Overwatch League <br/> <a href= "https://overwatchleague.com/en-us/about">
             Overwatch League</a>
           </Row>
-          <Row style= {{backgroundColor: '#f0f5f5', marginLeft: 0, marginRight: 0}}>
+        <Row style= {{backgroundColor: '#f0f5f5', marginLeft: 0, marginRight: 0}}>
             <Col md={6} mdPush={6}>
             <h2>Stage 1 Pool Size</h2>
-              <p>{this.state.poolSize} Ether</p>
-              </Col>
+            <p>{this.state.poolSize} Ether</p>
+            </Col>
             <Col md={6} mdPull={6}>
             <h2>Number of Tokens</h2>
-              <p>{this.state.totalTokens} Tokens</p>
+            <p>{this.state.totalTokens} Tokens</p>
             </Col>
           </Row>
           <Row>
-            <Col><BuildToken/></Col>
-            <Col><Withdrawal/></Col>
+            <BuildToken/>
+            <Withdrawal/>
           </Row>
-          <Row><Admin/></Row>
+          <Admin/>
           <Row style= {{backgroundColor: '#f0f5f5'}}><tokenBuiltEvent/></Row>
           <hr/>
-          <div className="card-deck" style= {{backgroundColor: '#f0f5f5'}}> <div id='Tokens'></div> </div>
+          <div className="card-deck" style= {{backgroundColor: '#f0f5f5'}}> <div id='Tokens' class="card-deck"></div> </div>
 
         
       </div>

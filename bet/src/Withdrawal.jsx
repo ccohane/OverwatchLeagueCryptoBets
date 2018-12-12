@@ -68,17 +68,18 @@ class Withdrawal extends Component {
 
       render(){
         console.log(this.state.finalResults)
-        if(this.state.finalResults === undefined){
+        if(this.state.finalResults === true){
         return(
           <div>
             <hr/>
-            <button className="btn btn-primary btn-block" onClick={this.withdrawal}>Collect Winnings</button>
+            <button className="btn btn-primary" onClick={this.withdrawal}>Collect Winnings</button>
             <div id="message"></div>
           </div>
         )}
         else{
           return(
             <div>
+              <hr/>
               <p>Finals Results have not been determined yet. 
                 When results come in you will be able to withdrawal your ether</p>
             </div>

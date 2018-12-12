@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import {Grid,Row,Col} from 'react-bootstrap';
+import {Grid,Row,Col} from 'react-bootstrap';
 import getWeb3 from './utils/getWeb3.js';
 import CoreLayer from './contracts/CoreLayer.json';
 import './App.css';
@@ -103,7 +103,7 @@ class Admin extends Component {
             BettingInstance.adminAddress.call().then(value => {
               console.log(value)
             })
-            BettingInstance.setAdmin('0xDd8A98ace58C038497bA8196A0c682613F7b4161')
+            BettingInstance.setAdmin(accounts[0])
             .then((result) => {
                 console.log("Admin set as "+ accounts[0]);
             })
@@ -116,12 +116,14 @@ class Admin extends Component {
         //Only renders if the metamask address is the admin
         if(this.state.address === "0xDd8A98ace58C038497bA8196A0c682613F7b4161"){
         return(
-          <div>
-            <hr/>
-            <button className="btn btn-primary btn-block" onClick={this.SetAdmin}>Set Admin</button>
-            <hr/>
-            <button className="btn btn-primary btn-block" onClick={this.getWinners}>Get Stage Results</button>
-          </div>
+          <Row>
+          <Col md={6} mdPush={6}>
+            <button className="btn btn-primary" onClick={this.SetAdmin}>Set Admin</button>
+          </Col>
+          <Col md={6} mdPull={6}>
+            <button className="btn btn-primary" onClick={this.getWinners}>Set Stage Results</button>
+          </Col>
+          </Row>
         )}
         else{
           return (<p></p> )

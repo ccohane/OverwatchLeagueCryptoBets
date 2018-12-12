@@ -293,7 +293,7 @@ class BuildToken extends Component {
                 </Row>
             
                     <br/>
-                        <button className="btn btn-primary btn-block" onClick={this.BuildToken}>Build Token</button>
+                        <button className="btn btn-primary " onClick={this.BuildToken}>Build Token</button>
                         </form>
                         <div id="txStatus"></div>
                 </div>
