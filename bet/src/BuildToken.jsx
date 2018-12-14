@@ -29,10 +29,12 @@ class BuildToken extends Component {
           editing the state variables of the component */
           results.web3.eth.getAccounts( (error,acc) => {
             //this.setState is used to edit the state variables
-            this.setState({
-              web3: results.web3,
-              address: acc[0],
-            })
+            if(acc != undefined){
+                this.setState({
+                    web3: results.web3,
+                    address: acc[0],
+                  })
+            }
           });
           //At the end of the first promise, we return the loaded web3
           console.log("got web3 in BT")
@@ -100,7 +102,7 @@ class BuildToken extends Component {
                 <div className="card-body">
                     <div id="txStatus"></div>
                     <form name="stage" className="form-signin">
-                        <h2 className="card-title">Pick a Team To Win</h2>
+                        <h2 className="card-title">Pick a Team To Win Stage 1</h2>
                 <Row>
                     {/* we define the two columns. The bootstrap grid is divided by 12
                     parts so if we want two columns, they will take 6 parts each */}
@@ -197,7 +199,7 @@ class BuildToken extends Component {
                     </Col>
                 </Row>
                 <Row style= {{backgroundColor: '#f0f5f5'}}>
-                <h2 className="card-title">Pick a Team To Come In Second Place!</h2>
+                <h2 className="card-title">Pick a Team To Come In Second Place for Stage 1!</h2>
                     <Col xs={3} sm={3}>
                     <div className="form-check form-check-inline ">
                         <input className="form-check-input" type="checkbox" name="RunnerUp" value="4402"/>

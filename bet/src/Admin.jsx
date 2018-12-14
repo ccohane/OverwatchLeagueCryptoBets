@@ -22,10 +22,13 @@ class Admin extends Component {
           results.web3.eth.getAccounts( (error,acc) => {
             //this.setState is used to edit the state variables
             console.log(results.web3)
-            this.setState({
-              web3: results.web3,
-              address: acc[0],
-            })
+            console.log(acc)
+            if(acc != undefined){
+              this.setState({
+                web3: results.web3,
+                address: acc[0],
+              })
+            }
           });
           //At the end of the first promise, we return the loaded web3
           return results.web3

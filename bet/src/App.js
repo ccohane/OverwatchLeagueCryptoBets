@@ -5,7 +5,7 @@ import $ from 'jquery';
 import getWeb3 from './utils/getWeb3.js';
 import {Grid,Row,Col,ListGroup, ListGroupItem} from 'react-bootstrap';
 import { Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle} from 'reactstrap';
+  CardTitle, CardSubtitle, CardGroup} from 'reactstrap';
 import CoreLayer from './contracts/CoreLayer.json';
 //import Profile from './Profile';
 import BuildToken from './BuildToken';
@@ -13,6 +13,7 @@ import Admin from './Admin';
 
 import Withdrawal from './Withdrawal';
 import teams from './teams';
+
 
 //import tokenBuiltEvent from './tokenBuiltEvent';
 
@@ -53,13 +54,15 @@ class App extends Component {
       editing the state variables of the component */
       results.web3.eth.getAccounts( (error,acc) => {
         //this.setState is used to edit the state variables
-        this.setState({
-          address: acc[0],
-          web3: results.web3, 
-        })
-        this.getPoolSize()
-        this.getTokens(results.web3)
-      });
+        if(acc != undefined){
+          this.setState({
+            address: acc[0],
+            web3: results.web3, 
+          })
+          this.getPoolSize()
+          this.getTokens(results.web3)
+      }
+    });
     }).catch( () => {
       //If no web3 provider was found, log it in the console
       console.log('Error finding web3.')
@@ -129,14 +132,15 @@ class App extends Component {
               console.log(token)
               //Append a card with token information to be rendered on the page
               $("#Tokens").append(
-                `<div class="card ">
-                  <img class="card-img-top" width="50" height="50" src=${teams[token[1].toNumber()][1]} alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title"><b>Stage:</b> ${token[0].toNumber()}</h5>
-                    <p class="card-text"><b>Winning Team</b>: ${teams[token[1].toNumber()][0]} 
-                    <br> <b>Runner Up</b>: ${teams[token[2].toNumber()][0]}</p>
-                  </div>
-                </div>`
+                `<div className="card ">
+                 <img className="card-img-top" width="50" height="50" src=${teams[token[1].toNumber()][1]} alt="Card image cap">
+                 <div className="card-body">
+                   <h5 className="card-title"><b>Stage:</b> ${token[0].toNumber()}</h5>
+                   <p className="card-text"><b>Winning Team</b>: ${teams[token[1].toNumber()][0]}
+                   <br> <b>Runner Up</b>: ${teams[token[2].toNumber()][0]}</p>
+                 </div>
+               </div>`
+                
               );
           })
     }})
@@ -151,15 +155,35 @@ class App extends Component {
       <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Overwatch League CryptoBets</h1>
+          <br/>
+          <br/>
+          <h4> Scroll Down</h4>
       </header>
-        <Row>
-          <h2 style= {{backgroundColor: '#f0f5f5'}}>Welcome to Overwatch League CryptoBets</h2> <br/>
-        Your Wallet address is <b>{this.state.address}</b>
+        <Row style= {{backgroundColor: '#f0f5f5'}}>
+          <h2>Welcome to Overwatch League CryptoBets</h2> <br/>
+
+          <img height="200" width="250" src="https://pmcvariety.files.wordpress.com/2017/07/overwatch-league.png?w=1000&h=563&crop=1"></img>
+          <br/><br/>
+        Your Metamask Wallet Address is <b>{this.state.address}</b>
         </Row>
         {/*We define a grid*/}
         
           {/*corresponding to class="row"*/}
-          <h4 style={{color:'#FF0000'}}>Rules</h4>
+          <Row>
+          
+            <Col>
+            <h3 style={{color:'#FF0000'}}> Install Metamask</h3>
+            <ListGroup style= {{backgroundColor: '#f0f5f5'}}> 
+              <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>To use OWL Cryptobets you need to install Metamask's Chrome Extension</ListGroupItem>
+              <ListGroupItem >Click here to install <a href="https://metamask.io/">Metamask</a> and create a Metmask account</ListGroupItem>
+              <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>Click on the Metamask Extention Icon and change the networks at the top from the Main Ethereum Network to the Ropsten Test Network</ListGroupItem>
+              <ListGroupItem >Go to <a href="https://faucet.metamask.io/"> Ropsten Faucet</a> and request 1 ether from the wallet. (This may take a few minute to process)</ListGroupItem>
+              <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>Now you are ready to bet on Overwatch League Stage 1</ListGroupItem>     
+            </ListGroup>
+            </Col>
+            
+          </Row>
+          <h3 style={{color:'#FF0000'}}>Rules</h3>
         <ListGroup style= {{backgroundColor: '#f0f5f5'}}> 
           <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>Build a Token by choosing 1 team to win the Stage and 1 team to come in second place for the stage</ListGroupItem>
           <ListGroupItem >Tokens cost .1 Ether</ListGroupItem>
@@ -168,9 +192,11 @@ class App extends Component {
           <ListGroupItem style= {{backgroundColor: '#f0f5f5'}}>Winners can collect their prize money once the Stage has completed!</ListGroupItem>
         </ListGroup>
         <Row>
+          <br/>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/iCiALLXueZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br/>
            Learn more about Overwatch League <br/> <a href= "https://overwatchleague.com/en-us/about">
             Overwatch League</a>
+            <br/>
           </Row>
         <Row style= {{backgroundColor: '#f0f5f5', marginLeft: 0, marginRight: 0}}>
             <Col md={6} mdPush={6}>
@@ -189,9 +215,17 @@ class App extends Component {
           <Admin/>
           <Row style= {{backgroundColor: '#f0f5f5'}}><tokenBuiltEvent/></Row>
           <hr/>
-          <div className="card-deck" style= {{backgroundColor: '#f0f5f5'}}> <div id='Tokens' class="card-deck"></div> </div>
+          <h1>Your Tokens</h1>
+          <div className="card-deck" style= {{backgroundColor: '#f0f5f5'}}> 
+            <CardGroup id= 'Tokens'>
+            </CardGroup>
+            <div id='Tokens' className="card-deck">
+            </div> 
+          </div>
 
-        
+          <hr/>
+          <p>Creator: Callahan Cohane</p>
+          <p>Email: Ccohane@gmail.com</p>
       </div>
     );
   }
