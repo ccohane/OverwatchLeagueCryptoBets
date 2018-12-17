@@ -156,6 +156,9 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Overwatch League CryptoBets</h1>
           <br/>
+          <h2>Attention: This is a proof of concept application! 
+            This website only uses fake ether and not real money. 
+            It is in full compliance with the law. </h2>
           <br/>
           <h4> Scroll Down</h4>
       </header>
@@ -165,6 +168,7 @@ class App extends Component {
           <img height="200" width="250" src="https://pmcvariety.files.wordpress.com/2017/07/overwatch-league.png?w=1000&h=563&crop=1"></img>
           <br/><br/>
         Your Metamask Wallet Address is <b>{this.state.address}</b>
+        <br/>
         </Row>
         {/*We define a grid*/}
         
