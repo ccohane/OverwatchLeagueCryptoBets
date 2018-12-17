@@ -156,7 +156,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Overwatch League CryptoBets</h1>
           <br/>
-          <h2>Attention: This is a proof of concept application! 
+          <h2 style={{color: '#FF0000', marginLeft: 20, marginRight:20}}>Attention: This is a proof of concept application! 
             This website only uses fake ether and not real money. 
             It is in full compliance with the law. </h2>
           <br/>
