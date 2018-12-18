@@ -68,7 +68,7 @@ class Withdrawal extends Component {
 
       render(){
         console.log(this.state.finalResults)
-        if(this.state.finalResults === true){
+        
         return(
           <div>
             <hr/>
@@ -76,6 +76,7 @@ class Withdrawal extends Component {
             <div id="message"></div>
           </div>
         )}
+        /*
         else{
           return(
             <div>
@@ -84,7 +85,7 @@ class Withdrawal extends Component {
                 When results come in you will be able to withdrawal your ether</p>
             </div>
           )
-        }
-}
+        } */
+
 }
 export default Withdrawal;

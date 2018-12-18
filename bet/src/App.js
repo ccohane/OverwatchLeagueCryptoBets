@@ -168,7 +168,7 @@ class App extends Component {
           <img height="200" width="250" src="https://pmcvariety.files.wordpress.com/2017/07/overwatch-league.png?w=1000&h=563&crop=1"></img>
           <br/><br/>
         Your Metamask Wallet Address is <b>{this.state.address}</b>
-        <br/>
+        <br/><br/>
         </Row>
         {/*We define a grid*/}
         
@@ -230,6 +230,7 @@ class App extends Component {
           <hr/>
           <p>Creator: Callahan Cohane</p>
           <p>Email: Ccohane@gmail.com</p>
+          <p>Website: <a href="http://callahancohane.ml/">http://callahancohane.ml/</a></p>
       </div>
     );
   }

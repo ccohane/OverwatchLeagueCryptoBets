@@ -107,93 +107,93 @@ class BuildToken extends Component {
                     {/* we define the two columns. The bootstrap grid is divided by 12
                     parts so if we want two columns, they will take 6 parts each */}
                     <Col xs={3} sm={3}> 
-                    <div className="form-check form-check-inline ">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4402"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox1">Boston Uprising</label>
+                    <div className="custom-control custom-radio custom-control-inline ">
+                        <input className="form-check-input" type="radio" name="Winner" value="4402"/>
+                        <label className="form-check-label" htmlFor="inlineradio1">Boston Uprising</label>
                         </div>
-                        <div className="form-check form-check-inline ml-2">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4523"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox2">Dallas Fuel</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-2">
+                        <input className="form-check-input" type="radio" name="Winner" value="4523"/>
+                        <label className="form-check-label" htmlFor="inlineradio2">Dallas Fuel</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4407"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox3">Florida Mayhem</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="4407"/>
+                        <label className="form-check-label" htmlFor="inlineradio3">Florida Mayhem</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4525"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox4">Houston Outlaws</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="4525"/>
+                        <label className="form-check-label" htmlFor="inlineradio4">Houston Outlaws</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4410"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox5">London Spitfire</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="4410"/>
+                        <label className="form-check-label" htmlFor="inlineradio5">London Spitfire</label>
                         </div>
                 {/*We will import Team A component here */}
                         </Col>
-                    <Col xs={3} sm={3}> <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4406"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox6">Los Angeles Gladiators</label>
+                    <Col xs={3} sm={3}> <div className="custom-control custom-radio custom-control-inline">
+                        <input className="form-check-input" type="radio" name="Winner" value="4406"/>
+                        <label className="form-check-label" htmlFor="inlineradio6">Los Angeles Gladiators</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4405"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox7">Los Angeles Valiant</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="4405"/>
+                        <label className="form-check-label" htmlFor="inlineradio7">Los Angeles Valiant</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4403"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox8">New York Excelsior</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="4403"/>
+                        <label className="form-check-label" htmlFor="inlineradio8">New York Excelsior</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4524"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox9">Philadelphia Fushion</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="4524"/>
+                        <label className="form-check-label" htmlFor="inlineradio9">Philadelphia Fushion</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4404"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox10">San Francisco Shock</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="4404"/>
+                        <label className="form-check-label" htmlFor="inlineradio10">San Francisco Shock</label>
                         </div>
                     {/*We will import Team B component here */}</Col>
                     <Col xs={3} sm={3}>
                     
-                    <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4409"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox11">Seoul Dynasty</label>
+                    <div className="custom-control custom-radio custom-control-inline">
+                        <input className="form-check-input" type="radio" name="Winner" value="4409"/>
+                        <label className="form-check-label" htmlFor="inlineradio11">Seoul Dynasty</label>
                         </div>
-                        <div className="form-check form-check-inline ml-2">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="4408"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox12">Shanghai Dragons</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-2">
+                        <input className="form-check-input" type="radio" name="Winner" value="4408"/>
+                        <label className="form-check-label" htmlFor="inlineradio12">Shanghai Dragons</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="13"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox13">Atlanta</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="13"/>
+                        <label className="form-check-label" htmlFor="inlineradio13">Atlanta</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="14"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox14">Guangzhou</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="14"/>
+                        <label className="form-check-label" htmlFor="inlineradio14">Guangzhou</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="15"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox15">Chengdu</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="15"/>
+                        <label className="form-check-label" htmlFor="inlineradio15">Chengdu</label>
                         </div>
                     
                     </Col>
                     <Col xs={3} sm={3}>
-                    <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="16"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox16">Hangzhou</label>
+                    <div className="custom-control custom-radio custom-control-inline">
+                        <input className="form-check-input" type="radio" name="Winner" value="16"/>
+                        <label className="form-check-label" htmlFor="inlineradio16">Hangzhou</label>
                         </div>
-                        <div className="form-check form-check-inline ml-2">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="17"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox17">Paris</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-2">
+                        <input className="form-check-input" type="radio" name="Winner" value="17"/>
+                        <label className="form-check-label" htmlFor="inlineradio17">Paris</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="18"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox18">Toronto</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="18"/>
+                        <label className="form-check-label" htmlFor="inlineradio18">Toronto</label>
                         </div> 
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="19"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox19">Vancouver</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="19"/>
+                        <label className="form-check-label" htmlFor="inlineradio19">Vancouver</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="Winner" value="20"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox20">Washington, D.C</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="Winner" value="20"/>
+                        <label className="form-check-label" htmlFor="inlineradio20">Washington, D.C</label>
                         </div>
                     
                     </Col>
@@ -201,94 +201,94 @@ class BuildToken extends Component {
                 <Row style= {{backgroundColor: '#f0f5f5'}}>
                 <h2 className="card-title">Pick a Team To Come In Second Place for Stage 1!</h2>
                     <Col xs={3} sm={3}>
-                    <div className="form-check form-check-inline ">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4402"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox1">Boston Uprising</label>
+                    <div className="custom-control custom-radio custom-control-inline ">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4402"/>
+                        <label className="form-check-label" htmlFor="inlineradio1">Boston Uprising</label>
                         </div>
-                        <div className="form-check form-check-inline ml-2">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4523"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox2">Dallas Fuel</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-2">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4523"/>
+                        <label className="form-check-label" htmlFor="inlineradio2">Dallas Fuel</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4407"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox3">Florida Mayhem</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4407"/>
+                        <label className="form-check-label" htmlFor="inlineradio3">Florida Mayhem</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4525"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox4">Houston Outlaws</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4525"/>
+                        <label className="form-check-label" htmlFor="inlineradio4">Houston Outlaws</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4410"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox5">London Spitfire</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4410"/>
+                        <label className="form-check-label" htmlFor="inlineradio5">London Spitfire</label>
                         </div>
                         
                     </Col>
                     <Col xs={3} sm={3}>
-                    <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4406"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox6">Los Angeles Gladiators</label>
+                    <div className="custom-control custom-radio custom-control-inline">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4406"/>
+                        <label className="form-check-label" htmlFor="inlineradio6">Los Angeles Gladiators</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4405"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox7">Los Angeles Valiant</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4405"/>
+                        <label className="form-check-label" htmlFor="inlineradio7">Los Angeles Valiant</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4403"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox8">New York Excelsior</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4403"/>
+                        <label className="form-check-label" htmlFor="inlineradio8">New York Excelsior</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4524"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox9">Philadelphia Fushion</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4524"/>
+                        <label className="form-check-label" htmlFor="inlineradio9">Philadelphia Fushion</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4404"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox10">San Francisco Shock</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4404"/>
+                        <label className="form-check-label" htmlFor="inlineradio10">San Francisco Shock</label>
                         </div>
                     
                     </Col>
                     <Col xs={3} sm={3}>
-                    <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4409"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox11">Seoul Dynasty</label>
+                    <div className="custom-control custom-radio custom-control-inline">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4409"/>
+                        <label className="form-check-label" htmlFor="inlineradio11">Seoul Dynasty</label>
                         </div>
-                        <div className="form-check form-check-inline ml-2">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="4408"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox12">Shanghai Dragons</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-2">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="4408"/>
+                        <label className="form-check-label" htmlFor="inlineradio12">Shanghai Dragons</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="13"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox13">Atlanta</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="13"/>
+                        <label className="form-check-label" htmlFor="inlineradio13">Atlanta</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="14"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox14">Guangzhou</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="14"/>
+                        <label className="form-check-label" htmlFor="inlineradio14">Guangzhou</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="15"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox15">Chengdu</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="15"/>
+                        <label className="form-check-label" htmlFor="inlineradio15">Chengdu</label>
                         </div>
                         
                     </Col>
                     <Col xs={3} sm={3}>
-                    <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="16"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox16">Hangzhou</label>
+                    <div className="custom-control custom-radio custom-control-inline">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="16"/>
+                        <label className="form-check-label" htmlFor="inlineradio16">Hangzhou</label>
                         </div>
-                        <div className="form-check form-check-inline ml-2">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="17"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox17">Paris</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-2">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="17"/>
+                        <label className="form-check-label" htmlFor="inlineradio17">Paris</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="18"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox18">Toronto</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="18"/>
+                        <label className="form-check-label" htmlFor="inlineradio18">Toronto</label>
                         </div> 
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="19"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox19">Vancouver</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="19"/>
+                        <label className="form-check-label" htmlFor="inlineradio19">Vancouver</label>
                         </div>
-                        <div className="form-check form-check-inline ml-1">
-                        <input className="form-check-input" type="checkbox" name="RunnerUp" value="20"/>
-                        <label className="form-check-label" htmlFor="inlineCheckbox20">Washington, D.C</label>
+                        <div className="custom-control custom-radio custom-control-inline ml-1">
+                        <input className="form-check-input" type="radio" name="RunnerUp" value="20"/>
+                        <label className="form-check-label" htmlFor="inlineradio20">Washington, D.C</label>
                         </div>
                     
                     </Col>
