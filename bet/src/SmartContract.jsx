@@ -6,9 +6,8 @@ class SmartContract extends Component {
     constructor(){
         super();
         this.state={
-          
+          githubEmbed: ''
         }
-        this.SmartContract = this.SmartContract.bind(this);
       }
 
     render(){
@@ -16,15 +15,11 @@ class SmartContract extends Component {
     return(
         <div>
             <hr/>
-            <p>
-            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            
+            <a class="btn btn-primary" href="https://github.com/ccohane/OverwatchLeagueCryptoBets/blob/master/bet/contracts/Betting.sol" target="_blank" role="button" aria-expanded="false">
                 Smart Contract Code
             </a>
-            </p>
-            <div class="collapse" id="collapseExample">
-            <SyntaxHighlighter language='javascript' style={docco}>{codeString}</SyntaxHighlighter>
-
-            </div>
+            
         </div>
     )}
 

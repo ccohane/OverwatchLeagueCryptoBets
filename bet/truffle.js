@@ -17,7 +17,7 @@ const Wallet = require('ethereumjs-wallet');
 //Configuration for ropsten test network using infura account
 var ropstenPrivateKey = new Buffer("5C9A6226F12D3CD170284ED9B0D464948576FC57C98FE720F6D3E4155A60524F","hex");
 var ropstenWallet = Wallet.fromPrivateKey(ropstenPrivateKey);
-var ropstenProvider = new WalletProvider(ropstenWallet, "https://ropsten.infura.io/v3/4e7eeac7fc1b44f281d1a644945440d0");
+var ropstenProvider = new WalletProvider(ropstenWallet, "https://ropsten.infura.io/v3/61a88ba321604866bc3e8a8da603afaf");
 
 //Configuration for rinkeby test network using infura account
 //Do not use Rinkeby provider because getting fake ether is very not cool
