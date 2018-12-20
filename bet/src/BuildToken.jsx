@@ -8,12 +8,6 @@ import './App.css';
 class BuildToken extends Component {
     constructor(){
         super();
-        /**
-         * web3 : web3 
-         * address: users account address
-         * inputAmount: the bet size for building a token in ether
-         * weiConversion: used to convert input amount to wei
-         */
         this.state={
           web3: '',
           address: "",

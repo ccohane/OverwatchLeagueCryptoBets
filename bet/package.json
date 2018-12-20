@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "ethereumjs-wallet": "^0.6.0",
+    "github-embed": "^1.0.1",
     "jquery": "^3.3.1",
     "react": "^16.4.0",
     "react-bootstrap": "^0.31.0",

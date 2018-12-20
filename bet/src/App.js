@@ -13,6 +13,7 @@ import Admin from './Admin';
 
 import Withdrawal from './Withdrawal';
 import teams from './teams';
+import SmartContract from './SmartContract';
 
 
 //import tokenBuiltEvent from './tokenBuiltEvent';
@@ -227,6 +228,7 @@ class App extends Component {
             </div> 
           </div>
 
+          <SmartContract/>
           <hr/>
           <p>Creator: Callahan Cohane</p>
           <p>Email: Ccohane@gmail.com</p>
